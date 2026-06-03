@@ -62,15 +62,15 @@ py manage.py migrate
 ```
 pip freeze
 pip freeze > requirements.txt
-git clone https://github.com/novakvova/Python-Django-P32.git
-cd Python-Django-P32
-cd djangomvt
+git clone https://github.com/novakvova/Python-PD411.git
+cd Python-PD411
+cd mysite
 py -m venv .venv
 .venv\Scripts\activate.bat
 
 python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
-cd atbmvt
+cd silpo
 py manage.py migrate
 py manage.py runserver 9581
 ```
