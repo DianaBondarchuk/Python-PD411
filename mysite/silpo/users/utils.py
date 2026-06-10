@@ -26,9 +26,12 @@ def compress_image(image_field, size=(800,800), quality=85):
 
 def save_custom_image(image, size, folder):
     resized_image, image_name = compress_image(image, size)
-    path = os.path.join(folder, image_name)
-    full_path = os.path.join(settings.IMAGES_ROOT, path)
-    os.makedirs(full_path, exist_ok=True)
+    # Створюємо шлях до директорії та шлях до файлу
+    dir_path = os.path.join(settings.IMAGES_ROOT, folder)
+    full_path = os.path.join(dir_path, image_name)
+    # Створюємо папки, якщо їх ще не існує
+    os.makedirs(dir_path, exist_ok=True)
+    # Зберігаємо файл
     with open(full_path, "wb") as f:
         f.write(resized_image.read())
     return image_name

@@ -24,6 +24,7 @@ def register(request):
                 login(request, user)
                 return redirect('homepage')
             except Exception as e:
+                print(str(e))
                 messages.error(request, f'Щось пішло не так: {str(e)}')
 
         else:
