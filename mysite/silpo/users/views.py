@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from users.forms import CustomUserForm
+from users.forms import CustomUserRegisterForm, CustomUserLoginForm
 from .utils import save_custom_image
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def register(request):
     if request.method == 'POST':
-        form = CustomUserForm(request.POST, request.FILES)
+        form = CustomUserRegisterForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 #Обробимо форму, що заповнив користувач
@@ -26,10 +26,28 @@ def register(request):
             except Exception as e:
                 print(str(e))
                 messages.error(request, f'Щось пішло не так: {str(e)}')
-
         else:
             messages.info(request, 'Виникли помилки при заповненні форми')
     else:
-        form = CustomUserForm()
+        form = CustomUserRegisterForm()
 
     return render(request, "register.html", {"form": form})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = CustomUserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(request, username=form.cleaned_data['email'],
+                                password=form.cleaned_data['password'])
+            if user is not None:
+                login(request, user)
+                return redirect('homepage')
+    else:
+        form = CustomUserLoginForm()
+    return render(request, 'login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('homepage')
