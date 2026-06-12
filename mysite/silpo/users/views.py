@@ -38,7 +38,7 @@ def user_login(request):
     if request.method == 'POST':
         form = CustomUserLoginForm(data=request.POST)
         if form.is_valid():
-            user = authenticate(request, username=form.cleaned_data['email'],
+            user = authenticate(request, username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password'])
             if user is not None:
                 login(request, user)

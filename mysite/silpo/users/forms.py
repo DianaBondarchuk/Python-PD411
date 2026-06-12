@@ -85,7 +85,7 @@ class CustomUserRegisterForm(UserCreationForm):
         return password2
 
 class CustomUserLoginForm(AuthenticationForm):
-    email = forms.EmailField(
+    username = forms.EmailField(
         label='Електронна пошта',
         required=True,
         widget=forms.TextInput(attrs={
