@@ -1,46 +1,36 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.utils.text import slugify
 
-from .models import Category
-from .forms import CategoryForm
+from categories.models import Category
+from categories.forms import CategoryForm
+from django.contrib import messages
 
-# Create your views here.
-
+from users.utils import save_custom_image
 
 def category_list(request):
-    categories = Category.objects.all()
-
-    context = {
-        'categories': categories
-    }
-
-    return render(
-        request,
-        'categories/category_list.html',
-        context
-    )
-
+    categories = Category.objects.all().order_by('name')
+    return render(request, 'categories/category_list.html', {'categories': categories})
 
 def category_create(request):
     if request.method == 'POST':
-        form = CategoryForm(
-            request.POST,
-            request.FILES
-        )
-
+        form = CategoryForm()
         if form.is_valid():
-            form.save()
-
-            return redirect('category_list')
+            try:
+                category = form.save(commit=False)
+                if not category.slug:
+                    category.slug = slugify(category.name, allow_unicode=False)
+                if ('image' in request.FILES):
+                    image = request.FILES['image']
+                    image_name = save_custom_image(image, size(600,600), folder='categories')
+                    category.image=image_name
+                category.save()
+                messages.success(request, 'Category created successfully')
+                return redirect('categories:list')
+            except Exception as e:
+                messages.error(request, f'Помилка створення категорії {str(e)}')
+        else:
+            messages.error(request, 'Виправте помилки у формі')
     else:
         form = CategoryForm()
-
-    context = {
-        'form': form
-    }
-
-    return render(
-        request,
-        'categories/category_create.html',
-        context
-    )
+    return render(request, 'categories/category_create.html', {'form' : form})
