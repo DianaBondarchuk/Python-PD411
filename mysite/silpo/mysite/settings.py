@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'categories'
+    'categories',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +77,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-#cakok41612@synsky.com
-#cakok41612@synsky.comQ
+#liheko6898@hitzcart.com
+#liheko6898@hitzcart.comQ
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -85,10 +86,10 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'ep-small-bread-ahd6ixs8-pooler.c-3.us-east-1.aws.neon.tech',
+        'HOST': 'ep-mute-star-alf23gy3-pooler.c-3.eu-central-1.aws.neon.tech',
         'NAME': 'neondb',
         'USER': 'neondb_owner',
-        'PASSWORD': 'npg_0laA1MIRjkVH',
+        'PASSWORD': 'npg_lW7MSIFE4gTR',
         'PORT': '5432'
     }
 }
@@ -148,6 +149,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.ukr.net'
 EMAIL_PORT = 2525
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'dianabondarcuk71@ukr.net'
-EMAIL_HOST_PASSWORD = 'xl02coEZWVdm2jeu'
+EMAIL_HOST_USER = 'super.novakvova@ukr.net'
+EMAIL_HOST_PASSWORD = '9J8nMfl6V0KjsowM'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
