@@ -89,3 +89,8 @@ def product_delete(request, product_id):
             messages.error(request, f'Помилка при видаленні продукту: {str(x)}')
             
     return redirect('products:show_products')
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    return render(request, 'products_detail.html', {'product': product})
